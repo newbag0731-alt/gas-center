@@ -6,9 +6,9 @@
     <title>대륜이엔에스 통합 고객센터 안내</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Pretendard:wght@600;800&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Pretendard:wght@500;700;900&display=swap');
         body { font-family: 'Pretendard', sans-serif; background-color: #fdfbf9; }
-        .center-btn { transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1); border: 1.5px solid #e2e8f0; }
+        .center-btn { transition: all 0.2s ease; border: 1.5px solid #e2e8f0; }
         .highlight { 
             border-color: #6366f1 !important; 
             background-color: #f5f7ff !important; 
@@ -18,50 +18,53 @@
         }
     </style>
 </head>
-<body class="pb-20">
+<body class="flex flex-col min-h-screen">
 
-    <header class="p-8 max-w-4xl mx-auto">
-        <h1 class="text-3xl font-extrabold text-slate-900">🏢 대륜이엔에스 <span class="text-indigo-600">통합 고객센터</span> 안내</h1>
-        <p class="text-slate-500 mt-2 font-medium">관할 고객센터 페이지를 통해 전/출입 등 서비스를 예약할 수 있습니다.</p>
+    <header class="pt-12 pb-6 px-6 max-w-4xl mx-auto w-full text-center">
+        <h1 class="text-3xl md:text-4xl font-black text-slate-800 tracking-tight">대륜이엔에스 통합 고객센터 안내</h1>
     </header>
 
-    <main class="max-w-4xl mx-auto px-6 space-y-12">
+    <main class="max-w-4xl mx-auto px-6 space-y-10 w-full flex-grow">
         
         <section>
             <div class="relative">
                 <input type="text" id="addressInput" 
                        placeholder="동/읍/면 이름을 입력하세요 (예: 상계동, 민락동, 옥정동)" 
-                       class="w-full bg-white border-2 border-slate-100 p-6 rounded-3xl shadow-xl focus:border-indigo-400 outline-none text-xl font-bold transition-all placeholder:text-slate-300"
+                       class="w-full bg-white border-2 border-slate-200 p-5 rounded-2xl shadow-sm focus:border-indigo-500 outline-none text-xl font-bold transition-all placeholder:text-slate-300"
                        oninput="matchCenter()">
             </div>
-            <p id="matchMsg" class="mt-4 px-4 text-indigo-600 font-bold text-lg h-6"></p>
+            <p id="matchMsg" class="mt-3 px-2 text-indigo-600 font-bold text-lg h-6"></p>
         </section>
 
         <section class="space-y-4">
-            <h3 class="text-sm font-black text-slate-400 uppercase pl-2">📍 서울지역</h3>
+            <h3 class="text-lg font-bold text-slate-700 pl-1 border-b-2 border-slate-800 inline-block pb-1">서울지역</h3>
             <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
-                <button class="center-btn bg-white p-5 rounded-2xl font-extrabold text-slate-600" data-name="노원1">노원1</button>
-                <button class="center-btn bg-white p-5 rounded-2xl font-extrabold text-slate-600" data-name="노원2">노원2</button>
-                <button class="center-btn bg-white p-5 rounded-2xl font-extrabold text-slate-600" data-name="노원도봉">노원도봉</button>
-                <button class="center-btn bg-white p-5 rounded-2xl font-extrabold text-slate-600" data-name="도봉">도봉</button>
-                <button class="center-btn bg-white p-5 rounded-2xl font-extrabold text-slate-600" data-name="강북1">강북1</button>
-                <button class="center-btn bg-white p-5 rounded-2xl font-extrabold text-slate-600" data-name="강북2">강북2</button>
-                <button class="center-btn bg-white p-5 rounded-2xl font-extrabold text-slate-600" data-name="성북">성북</button>
+                <button class="center-btn bg-white p-5 rounded-xl font-bold text-slate-600" data-name="노원1">노원1</button>
+                <button class="center-btn bg-white p-5 rounded-xl font-bold text-slate-600" data-name="노원2">노원2</button>
+                <button class="center-btn bg-white p-5 rounded-xl font-bold text-slate-600" data-name="노원도봉">노원도봉</button>
+                <button class="center-btn bg-white p-5 rounded-xl font-bold text-slate-600" data-name="도봉">도봉</button>
+                <button class="center-btn bg-white p-5 rounded-xl font-bold text-slate-600" data-name="강북1">강북1</button>
+                <button class="center-btn bg-white p-5 rounded-xl font-bold text-slate-600" data-name="강북2">강북2</button>
+                <button class="center-btn bg-white p-5 rounded-xl font-bold text-slate-600" data-name="성북">성북</button>
             </div>
         </section>
 
         <section class="space-y-4">
-            <h3 class="text-sm font-black text-slate-400 uppercase pl-2">📍 경기지역</h3>
+            <h3 class="text-lg font-bold text-slate-700 pl-1 border-b-2 border-slate-800 inline-block pb-1">경기지역</h3>
             <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
-                <button class="center-btn bg-white p-5 rounded-2xl font-extrabold text-slate-600" data-name="의정부1">의정부1</button>
-                <button class="center-btn bg-white p-5 rounded-2xl font-extrabold text-slate-600" data-name="의정부2">의정부2</button>
-                <button class="center-btn bg-white p-5 rounded-2xl font-extrabold text-slate-600" data-name="동두천">동두천</button>
-                <button class="center-btn bg-white p-5 rounded-2xl font-extrabold text-slate-600" data-name="양주">양주</button>
-                <button class="center-btn bg-white p-5 rounded-2xl font-extrabold text-slate-600" data-name="포천">포천</button>
+                <button class="center-btn bg-white p-5 rounded-xl font-bold text-slate-600" data-name="의정부1">의정부1</button>
+                <button class="center-btn bg-white p-5 rounded-xl font-bold text-slate-600" data-name="의정부2">의정부2</button>
+                <button class="center-btn bg-white p-5 rounded-xl font-bold text-slate-600" data-name="동두천">동두천</button>
+                <button class="center-btn bg-white p-5 rounded-xl font-bold text-slate-600" data-name="양주">양주</button>
+                <button class="center-btn bg-white p-5 rounded-xl font-bold text-slate-600" data-name="포천">포천</button>
             </div>
         </section>
 
     </main>
+
+    <footer class="mt-16 bg-slate-100 py-8 text-center text-slate-500 font-medium">
+        <p>관할 고객센터 페이지를 통해 전/출입 등 서비스를 예약할 수 있습니다.</p>
+    </footer>
 
     <script>
         const centers = {
@@ -80,32 +83,26 @@
         };
 
         function matchCenter() {
-            // 1. 입력값에서 공백 제거 (예: "민락 동" -> "민락동")
             const rawVal = document.getElementById('addressInput').value.replace(/\s/g, "");
             const btns = document.querySelectorAll('.center-btn');
             const msg = document.getElementById('matchMsg');
             
-            // 매칭 초기화
             btns.forEach(b => b.classList.remove('highlight'));
             msg.innerText = "";
 
             if (rawVal.length < 2) return;
 
-            // 2. 검색을 위해 뒤에 붙는 불필요한 행정구역 단어 제거 (예: "민락동" -> "민락")
             const searchVal = rawVal.replace(/(시|군|구|읍|면|동|리)$/, "");
             let found = new Set();
 
             for (const [center, keywords] of Object.entries(centers)) {
                 for (const kw of keywords) {
-                    // 조건 A: 사용자가 입력한 값(동 포함) 안에 키워드가 있을 때 (예: "의정부시 민락동"에 "민락" 포함)
-                    // 조건 B: 키워드 안에 사용자가 입력한 알맹이 단어가 있을 때 (예: 키워드 "상계1"에 "상계" 포함)
                     if (rawVal.includes(kw) || (searchVal.length >= 2 && kw.includes(searchVal))) {
                         found.add(center);
                     }
                 }
             }
 
-            // 3. 결과 화면에 표시
             if (found.size > 0) {
                 found.forEach(f => {
                     const target = document.querySelector(`.center-btn[data-name="${f}"]`);
