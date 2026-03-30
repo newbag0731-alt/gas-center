@@ -9,10 +9,8 @@
         @import url('https://fonts.googleapis.com/css2?family=Pretendard:wght@500;700;900&display=swap');
         body { font-family: 'Pretendard', sans-serif; background-color: #fdfbf9; }
         
-        /* 고객센터 버튼: 이제 클릭 안 되므로 static하게 변경 */
         .center-btn { border: 1.5px solid #e2e8f0; }
         
-        /* 매칭 강조 효과 (이전과 동일) */
         .highlight { 
             border-color: #6366f1 !important; 
             background-color: #f5f7ff !important; 
@@ -22,7 +20,6 @@
             transition: all 0.2s ease;
         }
 
-        /* ✅ 하단 주요 서비스 버튼 전용 애니메이션 */
         .action-btn { transition: all 0.3s ease; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06); }
         .action-btn:hover { transform: translateY(-3px); box-shadow: 0 10px 15px -3px rgba(99, 102, 241, 0.3); }
     </style>
@@ -62,7 +59,7 @@
             <h3 class="text-lg font-bold text-slate-700 pl-1 border-b-2 border-slate-800 inline-block pb-1">경기지역</h3>
             <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
                 <div class="center-btn bg-white p-5 rounded-xl font-bold text-slate-600 text-center" data-name="의정부1">의정부1</div>
-                <div class="center-btn bg-white p-5 rounded-xl font-bold text-slate-600 text-center" data-name="의정부2">의정부2</button>
+                <div class="center-btn bg-white p-5 rounded-xl font-bold text-slate-600 text-center" data-name="의정부2">의정부2</div>
                 <div class="center-btn bg-white p-5 rounded-xl font-bold text-slate-600 text-center" data-name="동두천">동두천</div>
                 <div class="center-btn bg-white p-5 rounded-xl font-bold text-slate-600 text-center" data-name="양주">양주</div>
                 <div class="center-btn bg-white p-5 rounded-xl font-bold text-slate-600 text-center" data-name="포천">포천</div>
@@ -70,7 +67,7 @@
         </section>
 
         <section class="mt-20 py-10 border-t-2 border-slate-100">
-            <h2 class="text-2xl font-black text-slate-900 tracking-tight text-center mb-10">⚡ 빠르고 편리한 주요 서비스 신청</h2>
+            <h2 class="text-2xl font-black text-slate-900 tracking-tight text-center mb-10">빠르고 편리한 주요 서비스 신청</h2>
             
             <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
                 <a href="https://www.daeryunens.com/daeryunens/customerservice/gasservice1.asp" target="_blank"
@@ -85,7 +82,7 @@
                 
                 <a href="https://www.daeryunens.com/daeryunens/customerservice/gasservice3.asp" target="_blank"
                    class="action-btn flex items-center justify-center gap-3 bg-indigo-600 text-white p-6 rounded-3xl font-bold text-lg hover:bg-indigo-700 transition-all">
-                    <span class="text-2xl">🛑</span> 도시가스 공급중지 신청
+                    <span class="text-2xl">🛑</span> 도시가스 공급중지
                 </a>
             </div>
         </section>
@@ -93,7 +90,7 @@
     </main>
 
     <footer class="bg-slate-100 py-8 text-center text-slate-500 font-medium border-t border-slate-200">
-        <p>관할 고객센터 페이지를 통해 전/출입 등 서비스를 예약할 수 있습니다.</p>
+        <p>빠르고 편리하게 주요 도시가스 서비스를 신청하실 수 있습니다.</p>
     </footer>
 
     <script>
@@ -117,13 +114,11 @@
             const btns = document.querySelectorAll('.center-btn');
             const msg = document.getElementById('matchMsg');
             
-            // 모든 하이라이트 초기화
             btns.forEach(b => b.classList.remove('highlight'));
             msg.innerText = "";
 
             if (rawVal.length < 2) return;
 
-            // 검색을 위해 행정구역 단어 제거
             const searchVal = rawVal.replace(/(시|군|구|읍|면|동|리)$/, "");
             let found = new Set();
 
@@ -135,10 +130,8 @@
                 }
             }
 
-            // 결과 화면에 표시
             if (found.size > 0) {
                 found.forEach(f => {
-                    // 이제 button이 아니라 div이므로 querySelector를 살짝 수정
                     const target = document.querySelector(`.center-btn[data-name="${f}"]`);
                     if (target) target.classList.add('highlight');
                 });
