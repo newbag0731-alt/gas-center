@@ -9,7 +9,8 @@
         @import url('https://fonts.googleapis.com/css2?family=Pretendard:wght@500;700;900&display=swap');
         body { font-family: 'Pretendard', sans-serif; background-color: #fdfbf9; }
         
-        .center-btn { border: 1.5px solid #e2e8f0; }
+        .center-btn { border: 1.5px solid #e2e8f0; cursor: pointer; transition: all 0.2s ease; }
+        .center-btn:hover { border-color: #a5b4fc; background-color: #f8fafc; }
         
         .highlight { 
             border-color: #6366f1 !important; 
@@ -17,14 +18,17 @@
             color: #4f46e5 !important;
             transform: translateY(-2px);
             box-shadow: 0 10px 20px -5px rgba(99, 102, 241, 0.2);
-            transition: all 0.2s ease;
         }
 
         .action-btn { transition: all 0.3s ease; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06); }
         .action-btn:hover { transform: translateY(-3px); box-shadow: 0 10px 15px -3px rgba(99, 102, 241, 0.3); }
+
+        /* 모달(팝업) 애니메이션 */
+        #phoneModal { transition: opacity 0.2s ease-in-out; }
+        .modal-content { transition: transform 0.2s ease-out; }
     </style>
 </head>
-<body class="flex flex-col min-h-screen">
+<body class="flex flex-col min-h-screen relative">
 
     <header class="pt-12 pb-6 px-6 max-w-4xl mx-auto w-full text-center">
         <h1 class="text-3xl md:text-4xl font-black text-slate-800 tracking-tight">대륜이엔에스 통합 고객센터 안내</h1>
@@ -45,24 +49,24 @@
         <section class="space-y-4">
             <h3 class="text-lg font-bold text-slate-700 pl-1 border-b-2 border-slate-800 inline-block pb-1">서울지역</h3>
             <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
-                <div class="center-btn bg-white p-5 rounded-xl font-bold text-slate-600 text-center" data-name="노원1">노원1</div>
-                <div class="center-btn bg-white p-5 rounded-xl font-bold text-slate-600 text-center" data-name="노원2">노원2</div>
-                <div class="center-btn bg-white p-5 rounded-xl font-bold text-slate-600 text-center" data-name="노원도봉">노원도봉</div>
-                <div class="center-btn bg-white p-5 rounded-xl font-bold text-slate-600 text-center" data-name="도봉">도봉</div>
-                <div class="center-btn bg-white p-5 rounded-xl font-bold text-slate-600 text-center" data-name="강북1">강북1</div>
-                <div class="center-btn bg-white p-5 rounded-xl font-bold text-slate-600 text-center" data-name="강북2">강북2</div>
-                <div class="center-btn bg-white p-5 rounded-xl font-bold text-slate-600 text-center" data-name="성북">성북</div>
+                <button class="center-btn bg-white p-5 rounded-xl font-bold text-slate-600 text-center" data-name="노원1" onclick="showPhone('노원1')">노원1</button>
+                <button class="center-btn bg-white p-5 rounded-xl font-bold text-slate-600 text-center" data-name="노원2" onclick="showPhone('노원2')">노원2</button>
+                <button class="center-btn bg-white p-5 rounded-xl font-bold text-slate-600 text-center" data-name="노원도봉" onclick="showPhone('노원도봉')">노원도봉</button>
+                <button class="center-btn bg-white p-5 rounded-xl font-bold text-slate-600 text-center" data-name="도봉" onclick="showPhone('도봉')">도봉</button>
+                <button class="center-btn bg-white p-5 rounded-xl font-bold text-slate-600 text-center" data-name="강북1" onclick="showPhone('강북1')">강북1</button>
+                <button class="center-btn bg-white p-5 rounded-xl font-bold text-slate-600 text-center" data-name="강북2" onclick="showPhone('강북2')">강북2</button>
+                <button class="center-btn bg-white p-5 rounded-xl font-bold text-slate-600 text-center" data-name="성북" onclick="showPhone('성북')">성북</button>
             </div>
         </section>
 
         <section class="space-y-4">
             <h3 class="text-lg font-bold text-slate-700 pl-1 border-b-2 border-slate-800 inline-block pb-1">경기지역</h3>
             <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
-                <div class="center-btn bg-white p-5 rounded-xl font-bold text-slate-600 text-center" data-name="의정부1">의정부1</div>
-                <div class="center-btn bg-white p-5 rounded-xl font-bold text-slate-600 text-center" data-name="의정부2">의정부2</div>
-                <div class="center-btn bg-white p-5 rounded-xl font-bold text-slate-600 text-center" data-name="동두천">동두천</div>
-                <div class="center-btn bg-white p-5 rounded-xl font-bold text-slate-600 text-center" data-name="양주">양주</div>
-                <div class="center-btn bg-white p-5 rounded-xl font-bold text-slate-600 text-center" data-name="포천">포천</div>
+                <button class="center-btn bg-white p-5 rounded-xl font-bold text-slate-600 text-center" data-name="의정부1" onclick="showPhone('의정부1')">의정부1</button>
+                <button class="center-btn bg-white p-5 rounded-xl font-bold text-slate-600 text-center" data-name="의정부2" onclick="showPhone('의정부2')">의정부2</button>
+                <button class="center-btn bg-white p-5 rounded-xl font-bold text-slate-600 text-center" data-name="동두천" onclick="showPhone('동두천')">동두천</button>
+                <button class="center-btn bg-white p-5 rounded-xl font-bold text-slate-600 text-center" data-name="양주" onclick="showPhone('양주')">양주</button>
+                <button class="center-btn bg-white p-5 rounded-xl font-bold text-slate-600 text-center" data-name="포천" onclick="showPhone('포천')">포천</button>
             </div>
         </section>
 
@@ -93,7 +97,83 @@
         <p>빠르고 편리하게 주요 도시가스 서비스를 신청하실 수 있습니다.</p>
     </footer>
 
+    <div id="phoneModal" class="fixed inset-0 bg-black bg-opacity-40 flex items-center justify-center z-50 hidden opacity-0">
+        <div class="modal-content bg-white rounded-3xl shadow-2xl p-8 max-w-sm w-full mx-4 transform scale-95">
+            <h2 id="modalTitle" class="text-2xl font-black text-slate-800 mb-2 border-b-2 border-indigo-100 pb-4 text-center">센터명</h2>
+            <p class="text-slate-500 text-sm text-center mb-6">아래 번호를 누르시면 바로 연결됩니다.</p>
+            <div id="modalNumbers" class="space-y-3 mb-8">
+                </div>
+            <button onclick="closePhoneModal()" class="w-full bg-slate-800 text-white font-bold py-4 rounded-xl hover:bg-slate-900 transition-all">
+                닫기
+            </button>
+        </div>
+    </div>
+
     <script>
+        // 센터별 전화번호 데이터베이스 (대시 포맷 적용)
+        const phoneData = {
+            "노원1": ["02-931-5200"],
+            "노원2": ["02-951-6002", "02-948-4700"],
+            "노원도봉": ["02-900-9440"],
+            "도봉": ["02-908-2341", "02-908-2342"],
+            "강북1": ["02-984-1306", "02-989-9944", "02-984-1390", "02-989-3268"],
+            "강북2": ["02-985-8100"],
+            "성북": ["02-942-2701", "02-942-2702", "02-942-1667", "02-942-1668"],
+            "의정부1": ["031-873-8000"],
+            "의정부2": ["031-851-6240", "031-872-9200"],
+            "동두천": ["031-865-0846"],
+            "양주": ["031-868-2300", "031-855-0815"],
+            "포천": ["031-848-5656"]
+        };
+
+        // 전화번호 팝업 열기
+        function showPhone(centerName) {
+            const modal = document.getElementById('phoneModal');
+            const title = document.getElementById('modalTitle');
+            const numbersContainer = document.getElementById('modalNumbers');
+            const content = modal.querySelector('.modal-content');
+
+            // 내용 채우기
+            title.innerText = centerName + ' 고객센터';
+            numbersContainer.innerHTML = ''; // 기존 내용 초기화
+
+            const numbers = phoneData[centerName];
+            if (numbers) {
+                numbers.forEach(num => {
+                    // 모바일에서 누르면 바로 전화 걸리게 세팅
+                    const html = `
+                        <a href="tel:${num.replace(/-/g, '')}" class="block bg-indigo-50 text-indigo-700 font-bold text-xl text-center py-4 rounded-2xl hover:bg-indigo-100 transition-all border border-indigo-100 shadow-sm">
+                            📞 ${num}
+                        </a>
+                    `;
+                    numbersContainer.insertAdjacentHTML('beforeend', html);
+                });
+            }
+
+            // 모달 표시 (부드러운 애니메이션)
+            modal.classList.remove('hidden');
+            setTimeout(() => {
+                modal.classList.remove('opacity-0');
+                content.classList.remove('scale-95');
+                content.classList.add('scale-100');
+            }, 10);
+        }
+
+        // 전화번호 팝업 닫기
+        function closePhoneModal() {
+            const modal = document.getElementById('phoneModal');
+            const content = modal.querySelector('.modal-content');
+
+            modal.classList.add('opacity-0');
+            content.classList.remove('scale-100');
+            content.classList.add('scale-95');
+
+            setTimeout(() => {
+                modal.classList.add('hidden');
+            }, 200); // 애니메이션 끝날 때까지 대기
+        }
+
+        // 주소 매칭 로직
         const centers = {
             "노원1": ["상계1", "상계2", "상계3", "상계4", "상계5", "상계8", "상계9", "상계10", "중계1", "중계4", "수락리버시티", "장암", "상계동", "중계동", "노원"],
             "노원2": ["상계6", "상계7", "하계", "공릉", "중계본", "중계2", "중계3", "상계동", "중계동", "노원"],
