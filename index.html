@@ -8,7 +8,8 @@
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Pretendard:wght@500;700;900&display=swap');
         body { font-family: 'Pretendard', sans-serif; background-color: #fdfbf9; }
-        .center-btn { transition: all 0.2s ease; border: 1.5px solid #e2e8f0; }
+        .center-btn { transition: all 0.2s ease; border: 1.5px solid #e2e8f0; cursor: pointer; }
+        .center-btn:hover { border-color: #a5b4fc; background-color: #f8fafc; }
         .highlight { 
             border-color: #6366f1 !important; 
             background-color: #f5f7ff !important; 
@@ -39,24 +40,24 @@
         <section class="space-y-4">
             <h3 class="text-lg font-bold text-slate-700 pl-1 border-b-2 border-slate-800 inline-block pb-1">서울지역</h3>
             <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
-                <button class="center-btn bg-white p-5 rounded-xl font-bold text-slate-600" data-name="노원1">노원1</button>
-                <button class="center-btn bg-white p-5 rounded-xl font-bold text-slate-600" data-name="노원2">노원2</button>
-                <button class="center-btn bg-white p-5 rounded-xl font-bold text-slate-600" data-name="노원도봉">노원도봉</button>
-                <button class="center-btn bg-white p-5 rounded-xl font-bold text-slate-600" data-name="도봉">도봉</button>
-                <button class="center-btn bg-white p-5 rounded-xl font-bold text-slate-600" data-name="강북1">강북1</button>
-                <button class="center-btn bg-white p-5 rounded-xl font-bold text-slate-600" data-name="강북2">강북2</button>
-                <button class="center-btn bg-white p-5 rounded-xl font-bold text-slate-600" data-name="성북">성북</button>
+                <button class="center-btn bg-white p-5 rounded-xl font-bold text-slate-600" data-name="노원1" onclick="goForm('노원1')">노원1</button>
+                <button class="center-btn bg-white p-5 rounded-xl font-bold text-slate-600" data-name="노원2" onclick="goForm('노원2')">노원2</button>
+                <button class="center-btn bg-white p-5 rounded-xl font-bold text-slate-600" data-name="노원도봉" onclick="goForm('노원도봉')">노원도봉</button>
+                <button class="center-btn bg-white p-5 rounded-xl font-bold text-slate-600" data-name="도봉" onclick="goForm('도봉')">도봉</button>
+                <button class="center-btn bg-white p-5 rounded-xl font-bold text-slate-600" data-name="강북1" onclick="goForm('강북1')">강북1</button>
+                <button class="center-btn bg-white p-5 rounded-xl font-bold text-slate-600" data-name="강북2" onclick="goForm('강북2')">강북2</button>
+                <button class="center-btn bg-white p-5 rounded-xl font-bold text-slate-600" data-name="성북" onclick="goForm('성북')">성북</button>
             </div>
         </section>
 
         <section class="space-y-4">
             <h3 class="text-lg font-bold text-slate-700 pl-1 border-b-2 border-slate-800 inline-block pb-1">경기지역</h3>
             <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
-                <button class="center-btn bg-white p-5 rounded-xl font-bold text-slate-600" data-name="의정부1">의정부1</button>
-                <button class="center-btn bg-white p-5 rounded-xl font-bold text-slate-600" data-name="의정부2">의정부2</button>
-                <button class="center-btn bg-white p-5 rounded-xl font-bold text-slate-600" data-name="동두천">동두천</button>
-                <button class="center-btn bg-white p-5 rounded-xl font-bold text-slate-600" data-name="양주">양주</button>
-                <button class="center-btn bg-white p-5 rounded-xl font-bold text-slate-600" data-name="포천">포천</button>
+                <button class="center-btn bg-white p-5 rounded-xl font-bold text-slate-600" data-name="의정부1" onclick="goForm('의정부1')">의정부1</button>
+                <button class="center-btn bg-white p-5 rounded-xl font-bold text-slate-600" data-name="의정부2" onclick="goForm('의정부2')">의정부2</button>
+                <button class="center-btn bg-white p-5 rounded-xl font-bold text-slate-600" data-name="동두천" onclick="goForm('동두천')">동두천</button>
+                <button class="center-btn bg-white p-5 rounded-xl font-bold text-slate-600" data-name="양주" onclick="goForm('양주')">양주</button>
+                <button class="center-btn bg-white p-5 rounded-xl font-bold text-slate-600" data-name="포천" onclick="goForm('포천')">포천</button>
             </div>
         </section>
 
@@ -67,6 +68,17 @@
     </footer>
 
     <script>
+        // 형이 찾아준 구글 폼 고유 ID를 여기에 쏙 넣었습니다!
+        const formEntryId = "entry.1167395281"; 
+
+        function goForm(centerName) {
+            // 형이 만든 구글 폼 기본 주소
+            const baseUrl = "https://docs.google.com/forms/d/e/1FAIpQLSdeZUosjUdYLxMa20P47n3sJVlzRZji-kHHEJYEZPbU4cwr0A/viewform";
+            // 마법의 주소 조합! (센터 이름 자동 인코딩)
+            const url = `${baseUrl}?usp=pp_url&${formEntryId}=${encodeURIComponent(centerName)}`;
+            window.open(url, '_blank');
+        }
+
         const centers = {
             "노원1": ["상계1", "상계2", "상계3", "상계4", "상계5", "상계8", "상계9", "상계10", "중계1", "중계4", "수락리버시티", "장암", "상계동", "중계동", "노원"],
             "노원2": ["상계6", "상계7", "하계", "공릉", "중계본", "중계2", "중계3", "상계동", "중계동", "노원"],
