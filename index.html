@@ -9,7 +9,6 @@
         @import url('https://fonts.googleapis.com/css2?family=Pretendard:wght@600;800&display=swap');
         body { font-family: 'Pretendard', sans-serif; background-color: #fdfbf9; }
         .center-btn { transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1); border: 1.5px solid #e2e8f0; }
-        /* 하이라이트: 부드러운 인디고 컬러와 그림자 */
         .highlight { 
             border-color: #6366f1 !important; 
             background-color: #f5f7ff !important; 
@@ -31,21 +30,16 @@
         <section>
             <div class="relative">
                 <input type="text" id="addressInput" 
-                       placeholder="동 이름이나 시 이름을 입력하세요 (예: 상계, 의정부, 민락)" 
+                       placeholder="동/읍/면 이름을 입력하세요 (예: 상계동, 옥정동, 소흘읍)" 
                        class="w-full bg-white border-2 border-slate-100 p-6 rounded-3xl shadow-xl focus:border-indigo-400 outline-none text-xl font-bold transition-all placeholder:text-slate-300"
                        oninput="matchCenter()">
-                <div class="absolute right-6 top-6 text-slate-300">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-                    </svg>
-                </div>
             </div>
-            <p id="matchMsg" class="mt-4 px-4 text-indigo-600 font-bold text-lg italic"></p>
+            <p id="matchMsg" class="mt-4 px-4 text-indigo-600 font-bold text-lg italic h-6"></p>
         </section>
 
         <section class="space-y-4">
             <h3 class="text-xs font-black text-slate-400 uppercase tracking-[0.2em] pl-2">Seoul District</h3>
-            <div class="grid grid-cols-2 sm:grid-cols-4 gap-3" id="seoulGroup">
+            <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
                 <button class="center-btn bg-white p-5 rounded-2xl font-extrabold text-slate-600" data-name="노원1">노원1</button>
                 <button class="center-btn bg-white p-5 rounded-2xl font-extrabold text-slate-600" data-name="노원2">노원2</button>
                 <button class="center-btn bg-white p-5 rounded-2xl font-extrabold text-slate-600" data-name="노원도봉">노원도봉</button>
@@ -58,7 +52,7 @@
 
         <section class="space-y-4">
             <h3 class="text-xs font-black text-slate-400 uppercase tracking-[0.2em] pl-2">Gyeonggi District</h3>
-            <div class="grid grid-cols-2 sm:grid-cols-4 gap-3" id="gyeonggiGroup">
+            <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
                 <button class="center-btn bg-white p-5 rounded-2xl font-extrabold text-slate-600" data-name="의정부1">의정부1</button>
                 <button class="center-btn bg-white p-5 rounded-2xl font-extrabold text-slate-600" data-name="의정부2">의정부2</button>
                 <button class="center-btn bg-white p-5 rounded-2xl font-extrabold text-slate-600" data-name="동두천">동두천</button>
@@ -70,47 +64,58 @@
     </main>
 
     <script>
+        // 전지역 읍면동 상세 데이터베이스
+        const centers = {
+            "노원1": ["상계1", "상계2", "상계3", "상계4", "상계5", "상계8", "상계9", "상계10", "중계1", "중계4", "수락리버시티", "장암동일부"],
+            "노원2": ["상계6", "상계7", "하계", "공릉", "중계본", "중계2", "중계3"],
+            "노원도봉": ["월계", "창1", "창2", "창3", "창4", "창5", "창동"],
+            "도봉": ["방학", "쌍문", "도봉1", "도봉2"],
+            "강북1": ["수유", "번1"],
+            "강북2": ["미아", "번2", "번3"],
+            "성북": ["상월곡", "하월곡", "길음", "석관", "장위", "이문", "래미안"],
+            "의정부1": ["의정부동", "의정부1", "의정부2", "의정부3", "가능", "녹양", "신곡2", "금오", "자일"],
+            "의정부2": ["민락", "용현", "고산", "낙양", "산곡", "호원", "신곡1", "장암"],
+            "동두천": ["동두천", "생연", "보산", "걸산", "안흥", "상봉암", "하봉암", "탑동", "상패", "송내", "지행", "광암", "연천", "전곡", "군남", "청산", "백학", "미산", "왕징", "신서", "중면", "장남"],
+            "양주": ["양주", "유양", "어둔", "남방", "마전", "산북", "광사", "만송", "삼숭", "고읍", "덕정", "봉양", "회암", "율정", "옥정", "고암", "덕계", "회정", "백석", "은현", "남면", "광적", "장흥", "회천"],
+            "포천": ["포천", "신읍", "어룡", "자작", "선단", "설운", "동교", "소흘", "군내", "내촌", "가산", "신북", "창수", "영중", "일동", "이동", "영북", "관인", "화현"]
+        };
+
         function matchCenter() {
-            const val = document.getElementById('addressInput').value.replace(/\s/g, ""); // 공백제거
+            // 사용자가 입력한 값에서 공백 제거
+            const rawVal = document.getElementById('addressInput').value.replace(/\s/g, "");
             const btns = document.querySelectorAll('.center-btn');
             const msg = document.getElementById('matchMsg');
             
+            // 초기화
             btns.forEach(b => b.classList.remove('highlight'));
             msg.innerText = "";
 
-            if (val.length < 1) return;
+            if (rawVal.length < 2) return;
 
-            let found = [];
+            // '동', '시', '군', '구', '읍', '면' 같은 접미사를 잘라내서 핵심 단어만 추출 (예: "상계동" -> "상계")
+            const coreVal = rawVal.replace(/(동|시|군|구|읍|면)$/, "");
+            let found = new Set();
 
-            // 1. 노원1
-            if ("상계1,상계2,상계3,상계4,상계5,상계8,상계9,상계10,중계1,중계4,수락리버,장암동일부".includes(val) || (val.includes("상계") && "123458910".includes(val.replace(/[^0-9]/g, "")))) found.push("노원1");
-            // 2. 노원2
-            if ("상계6,상계7,하계1,하계2,공릉1,공릉2,공릉3,중계본,중계2,중계3".includes(val)) found.push("노원2");
-            // 3. 노원도봉
-            if ("월계1,월계2,월계3,월계4,창1,창2,창3,창4,창5".includes(val) || val.includes("월계") || val.includes("창동")) found.push("노원도봉");
-            // 4. 도봉
-            if ("방학1,방학2,방학3,방학4,쌍문1,쌍문2,쌍문3,쌍문4,도봉1,도봉2".includes(val) || val.includes("방학") || val.includes("쌍문")) found.push("도봉");
-            // 5. 강북1
-            if ("수유1,수유2,수유3,수유4,수유5,수유6,번1".includes(val) || val.includes("수유")) found.push("강북1");
-            // 6. 강북2
-            if ("미아1,미아2,미아3,미아4,미아5,미아6,미아7,미아8,미아9,번2,번3".includes(val) || val.includes("미아")) found.push("강북2");
-            // 7. 성북
-            if ("상월곡,하월곡,길음,석관,장위,이문,래미안".includes(val)) found.push("성북");
-            
-            // 경기 로직
-            if ("의정부동,가능1,가능2,가능3,녹양,신곡2,금오,자일".includes(val) || val === "의정부") found.push("의정부1");
-            if ("민락,용현,고산,낙양,산곡,호원,신곡1,장암".includes(val)) found.push("의정부2");
-            if (val.includes("동두천") || val.includes("연천")) found.push("동두천");
-            if (val.includes("양주")) found.push("양주");
-            if (val.includes("포천")) found.push("포천");
+            // 모든 센터의 모든 동네 키워드를 순회하며 검사
+            for (const [center, keywords] of Object.entries(centers)) {
+                for (const kw of keywords) {
+                    // 1. 고객이 "상계동" 이라고 쳤을 때 (coreVal이 "상계") -> 키워드 "상계1"이 매칭되도록
+                    // 2. 고객이 "상계1" 이라고 쳤을 때 -> 키워드 "상계1"에 포함되므로 매칭되도록
+                    if (kw.includes(coreVal) || rawVal.includes(kw)) {
+                        found.add(center);
+                    }
+                }
+            }
 
-            // 강조 실행
-            if (found.length > 0) {
+            // 결과 화면에 표시
+            if (found.size > 0) {
                 found.forEach(f => {
                     const target = document.querySelector(`.center-btn[data-name="${f}"]`);
                     if (target) target.classList.add('highlight');
                 });
-                msg.innerText = `✔ ${found.join(', ')} 관할 확인!`;
+                msg.innerText = `✔ ${Array.from(found).join(', ')} 관할 확인!`;
+            } else {
+                msg.innerText = "😢 관할 구역을 찾을 수 없습니다.";
             }
         }
     </script>
