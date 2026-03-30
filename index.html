@@ -3,131 +3,109 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>도시가스 통합 고객센터 안내</title>
+    <title>도시가스 고객센터 통합안내</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        /* 세련된 파스텔톤 애니메이션 */
-        .center-btn { 
-            transition: all 0.3s ease; 
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
+        @import url('https://fonts.googleapis.com/css2?family=Pretendard:wght@400;700&display=swap');
+        body { font-family: 'Pretendard', sans-serif; }
+        .center-btn { transition: all 0.2s ease; }
+        /* 매칭되었을 때 효과: 테두리가 진해지고 살짝 커짐 */
+        .highlight { 
+            border: 3px solid #6366f1 !important; 
+            background-color: #eef2ff !important; 
+            transform: scale(1.05);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
         }
-        .center-btn:hover { transform: translateY(-3px); box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.08); }
-        .highlight { border: 4px solid #818cf8; transform: scale(1.03) !important; background-color: #eef2ff !important; color: #4338ca !important; }
-        .tab-active { border-bottom: 3px solid #f87171; color: #ef4444; font-weight: bold; }
     </style>
 </head>
-<body class="bg-gray-50 min-h-screen text-gray-800">
+<body class="bg-[#F8FAFC] text-slate-800 pb-20">
 
-    <header class="bg-indigo-50 text-indigo-900 p-8 text-center border-b border-indigo-100 mb-8">
-        <h1 class="text-3xl font-extrabold mb-3">🏢 도시가스 통합 고객센터 안내</h1>
-        <p class="text-indigo-700">고객님의 주소를 입력하여 담당 고객센터를 찾으세요.</p>
+    <header class="bg-white border-b border-slate-200 p-6 mb-8">
+        <div class="max-w-4xl mx-auto">
+            <h1 class="text-2xl font-black text-slate-900 tracking-tight">🏢 도시가스 관할찾기</h1>
+        </div>
     </header>
 
-    <main class="max-w-4xl mx-auto p-6 space-y-10">
+    <main class="max-w-4xl mx-auto px-5 space-y-10">
         
-        <section class="bg-white p-8 rounded-2xl shadow-sm border border-gray-100">
-            <label class="block text-lg font-bold text-gray-700 mb-4">📍 주소 입력 (동 이름 또는 시 이름)</label>
-            <input type="text" id="addressInput" placeholder="예: 상계1동, 의정부시, 양주시..." 
-                   class="w-full border-2 border-indigo-100 p-4 rounded-xl focus:border-indigo-300 outline-none text-lg transition shadow-inner bg-indigo-50/50"
+        <section class="bg-white p-6 rounded-3xl shadow-sm border border-slate-100">
+            <h2 class="text-sm font-bold text-slate-400 uppercase tracking-widest mb-3">Address Search</h2>
+            <input type="text" id="addressInput" 
+                   placeholder="동 이름이나 시 이름을 입력하세요 (예: 상계동, 의정부)" 
+                   class="w-full bg-slate-50 border-none p-5 rounded-2xl focus:ring-2 focus:ring-indigo-400 outline-none text-lg font-medium transition"
                    oninput="matchCenter()">
-            <p id="matchMsg" class="mt-4 text-indigo-700 font-semibold h-6"></p>
+            <p id="matchMsg" class="mt-4 text-indigo-600 font-bold min-h-[1.5rem]"></p>
         </section>
 
         <section>
-            <div class="flex border-b border-gray-200 mb-6 text-lg">
-                <button onclick="showRegion('seoul')" id="tabSeoul" class="flex-1 py-3 text-center tab-active hover:text-red-500">서울 관할</button>
-                <button onclick="showRegion('gyeonggi')" id="tabGyeonggi" class="flex-1 py-3 text-center text-gray-500 hover:text-red-500">경기 관할</button>
+            <div class="flex items-center gap-3 mb-5">
+                <span class="bg-blue-100 text-blue-600 px-3 py-1 rounded-full text-xs font-bold">SEOUL</span>
+                <h3 class="text-xl font-bold text-slate-700">서울 관할 지역</h3>
             </div>
-
-            <div id="gridSeoul" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-                <button class="center-btn bg-red-50 p-6 rounded-2xl font-bold text-red-900 border-2 border-transparent" data-name="노원1">노원1</button>
-                <button class="center-btn bg-red-50 p-6 rounded-2xl font-bold text-red-900 border-2 border-transparent" data-name="노원2">노원2</button>
-                <button class="center-btn bg-red-50 p-6 rounded-2xl font-bold text-red-900 border-2 border-transparent" data-name="노원도봉">노원도봉</button>
-                <button class="center-btn bg-red-50 p-6 rounded-2xl font-bold text-red-900 border-2 border-transparent" data-name="도봉">도봉</button>
-                <button class="center-btn bg-red-50 p-6 rounded-2xl font-bold text-red-900 border-2 border-transparent" data-name="강북1">강북1</button>
-                <button class="center-btn bg-red-50 p-6 rounded-2xl font-bold text-red-900 border-2 border-transparent" data-name="강북2">강북2</button>
-                <button class="center-btn bg-red-50 p-6 rounded-2xl font-bold text-red-900 border-2 border-transparent" data-name="성북">성북</button>
+            <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
+                <button class="center-btn bg-white border border-slate-200 p-5 rounded-2xl font-bold text-slate-600" data-name="노원1">노원1</button>
+                <button class="center-btn bg-white border border-slate-200 p-5 rounded-2xl font-bold text-slate-600" data-name="노원2">노원2</button>
+                <button class="center-btn bg-white border border-slate-200 p-5 rounded-2xl font-bold text-slate-600" data-name="노원도봉">노원도봉</button>
+                <button class="center-btn bg-white border border-slate-200 p-5 rounded-2xl font-bold text-slate-600" data-name="도봉">도봉</button>
+                <button class="center-btn bg-white border border-slate-200 p-5 rounded-2xl font-bold text-slate-600" data-name="강북1">강북1</button>
+                <button class="center-btn bg-white border border-slate-200 p-5 rounded-2xl font-bold text-slate-600" data-name="강북2">강북2</button>
+                <button class="center-btn bg-white border border-slate-200 p-5 rounded-2xl font-bold text-slate-600" data-name="성북">성북</button>
             </div>
+        </section>
 
-            <div id="gridGyeonggi" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 hidden">
-                <button class="center-btn bg-coral-50 p-6 rounded-2xl font-bold text-coral-900 border-2 border-transparent" data-name="의정부1">의정부1</button>
-                <button class="center-btn bg-coral-50 p-6 rounded-2xl font-bold text-coral-900 border-2 border-transparent" data-name="의정부2">의정부2</button>
-                <button class="center-btn bg-coral-50 p-6 rounded-2xl font-bold text-coral-900 border-2 border-transparent" data-name="동두천">동두천</button>
-                <button class="center-btn bg-coral-50 p-6 rounded-2xl font-bold text-coral-900 border-2 border-transparent" data-name="양주">양주</button>
-                <button class="center-btn bg-coral-50 p-6 rounded-2xl font-bold text-coral-900 border-2 border-transparent" data-name="포천">포천</button>
+        <section>
+            <div class="flex items-center gap-3 mb-5">
+                <span class="bg-orange-100 text-orange-600 px-3 py-1 rounded-full text-xs font-bold">GYEONGGI</span>
+                <h3 class="text-xl font-bold text-slate-700">경기 관할 지역</h3>
+            </div>
+            <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
+                <button class="center-btn bg-white border border-slate-200 p-5 rounded-2xl font-bold text-slate-600" data-name="의정부1">의정부1</button>
+                <button class="center-btn bg-white border border-slate-200 p-5 rounded-2xl font-bold text-slate-600" data-name="의정부2">의정부2</button>
+                <button class="center-btn bg-white border border-slate-200 p-5 rounded-2xl font-bold text-slate-600" data-name="동두천">동두천</button>
+                <button class="center-btn bg-white border border-slate-200 p-5 rounded-2xl font-bold text-slate-600" data-name="양주">양주</button>
+                <button class="center-btn bg-white border border-slate-200 p-5 rounded-2xl font-bold text-slate-600" data-name="포천">포천</button>
             </div>
         </section>
 
     </main>
 
     <script>
-        // 탭 전환 기능
-        function showRegion(region) {
-            const gridSeoul = document.getElementById('gridSeoul');
-            const gridGyeonggi = document.getElementById('gridGyeonggi');
-            const tabSeoul = document.getElementById('tabSeoul');
-            const tabGyeonggi = document.getElementById('tabGyeonggi');
-
-            if (region === 'seoul') {
-                gridSeoul.classList.remove('hidden');
-                gridGyeonggi.classList.add('hidden');
-                tabSeoul.classList.add('tab-active');
-                tabSeoul.classList.remove('text-gray-500');
-                tabGyeonggi.classList.remove('tab-active');
-                tabGyeonggi.classList.add('text-gray-500');
-            } else {
-                gridSeoul.classList.add('hidden');
-                gridGyeonggi.classList.remove('hidden');
-                tabSeoul.classList.remove('tab-active');
-                tabSeoul.classList.add('text-gray-500');
-                tabGyeonggi.classList.add('tab-active');
-                tabGyeonggi.classList.remove('text-gray-500');
-            }
-        }
-
-        // 주소 매칭 로직 (형의 데이터를 기반으로)
         function matchCenter() {
-            const addr = document.getElementById('addressInput').value;
+            const addr = document.getElementById('addressInput').value.trim();
             const buttons = document.querySelectorAll('.center-btn');
             const msg = document.getElementById('matchMsg');
-            let matchedCenter = "";
-
-            // 모든 하이라이트 초기화
+            
             buttons.forEach(btn => btn.classList.remove('highlight'));
             msg.innerText = "";
 
-            if (!addr) return;
+            if (addr.length < 2) return; // 두 글자 이상 입력 시 작동
 
-            // 상세 매칭 (형이 주신 상세 데이터 사용)
-            if (addr.includes("상계1") || addr.includes("상계2") || addr.includes("상계3") || addr.includes("상계4") || addr.includes("상계5") || addr.includes("상계8") || addr.includes("상계9") || addr.includes("상계10") || addr.includes("중계1동") || addr.includes("중계4동")) matchedCenter = "노원1";
-            else if (addr.includes("상계6") || addr.includes("상계7") || addr.includes("하계1동") || addr.includes("하계2동") || addr.includes("공릉1동") || addr.includes("공릉2동") || addr.includes("공릉3동") || addr.includes("중계본동") || addr.includes("중계2") || addr.includes("중계3동")) matchedCenter = "노원2";
-            else if (addr.includes("월계1") || addr.includes("월계2") || addr.includes("월계3") || addr.includes("월계4") || addr.includes("창1동") || addr.includes("창2동") || addr.includes("창3동") || addr.includes("창4동") || addr.includes("창5동")) matchedCenter = "노원도봉";
-            else if (addr.includes("방학1") || addr.includes("방학2") || addr.includes("방학3") || addr.includes("방학4") || addr.includes("쌍문1") || addr.includes("쌍문2") || addr.includes("쌍문3") || addr.includes("쌍문4") || addr.includes("도봉1동") || addr.includes("도봉2동")) matchedCenter = "도봉";
-            else if (addr.includes("수유1") || addr.includes("수유2") || addr.includes("수유3") || addr.includes("수유4") || addr.includes("수유5") || addr.includes("수유6") || addr.includes("번1동")) matchedCenter = "강북1";
-            else if (addr.includes("미아1") || addr.includes("미아2") || addr.includes("미아3") || addr.includes("미아4") || addr.includes("미아5") || addr.includes("미아6") || addr.includes("미아7") || addr.includes("미아8") || addr.includes("미아9") || addr.includes("번2동") || addr.includes("번3동")) matchedCenter = "강북2";
-            else if (addr.includes("상월곡동") || addr.includes("하월곡1") || addr.includes("하월곡2") || addr.includes("하월곡3") || addr.includes("하월곡4") || addr.includes("길음1") || addr.includes("길음2") || addr.includes("길음3") || addr.includes("석관1") || addr.includes("석관2") || addr.includes("장위1") || addr.includes("장위2") || addr.includes("장위3") || addr.includes("이문동") || addr.includes("삼성래미안8") || addr.includes("삼성래미안9")) matchedCenter = "성북";
+            let target = [];
+
+            // 상세 로직 적용
+            if (addr.match(/상계[1-5]|상계8|상계9|상계10|중계1|중계4|수락리버/)) target.push("노원1");
+            if (addr.match(/상계6|상계7|하계|공릉|중계본|중계2|중계3/)) target.push("노원2");
+            if (addr.match(/월계|창[1-5]/)) target.push("노원도봉");
+            if (addr.match(/방학|쌍문|도봉/)) target.push("도봉");
+            if (addr.match(/수유|번1/)) target.push("강북1");
+            if (addr.match(/미아|번2|번3/)) target.push("강북2");
+            if (addr.match(/상월곡|하월곡|길음|석관|장위|이문|래미안/)) target.push("성북");
             
-            // 경기지역 상세 매칭
-            else if (addr.includes("의정부동") || addr.includes("가능1") || addr.includes("가능2") || addr.includes("가능3") || addr.includes("녹양동") || addr.includes("신곡2동") || addr.includes("금오동") || addr.includes("자일동")) matchedCenter = "의정부1";
-            else if (addr.includes("민락동") || addr.includes("용현동") || addr.includes("고산동") || addr.includes("낙양동") || addr.includes("산곡동") || addr.includes("호원동") || addr.includes("신곡1동") || addr.includes("장암동")) matchedCenter = "의정부2";
-            else if (addr.includes("동두천") || addr.includes("연천군")) matchedCenter = "동두천";
-            else if (addr.includes("양주")) matchedCenter = "양주";
-            else if (addr.includes("포천")) matchedCenter = "포천";
+            if (addr.match(/의정부동|의정부1|의정부2|의정부3|가능|녹양|신곡2|금오|자일/)) target.push("의정부1");
+            if (addr.match(/민락|용현|고산|낙양|산곡|호원|신곡1|장암/)) target.push("의정부2");
+            if (addr.includes("동두천") || addr.includes("연천")) target.push("동두천");
+            if (addr.includes("양주")) target.push("양주");
+            if (addr.includes("포천")) target.push("포천");
 
-            // 매칭된 버튼 강조 및 탭 전환
-            if (matchedCenter) {
-                const targetBtn = document.querySelector(`.center-btn[data-name="${matchedCenter}"]`);
-                if (targetBtn) {
-                    targetBtn.classList.add('highlight');
-                    msg.innerText = `🔍 [${matchedCenter}] 관할 센터로 안내해 드릴까요?`;
-
-                    // 서울/경기 탭 자동 전환
-                    const parentGrid = targetBtn.parentElement.id;
-                    if (parentGrid === 'gridSeoul') showRegion('seoul');
-                    else showRegion('gyeonggi');
-                }
+            // 매칭된 버튼 강조
+            if (target.length > 0) {
+                target.forEach(name => {
+                    const btn = document.querySelector(`.center-btn[data-name="${name}"]`);
+                    if (btn) btn.classList.add('highlight');
+                });
+                msg.innerText = `💡 ${target.join(', ')} 관할 지역입니다.`;
             }
         }
-    </style>
+    </script>
 </body>
 </html>
